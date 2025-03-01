@@ -72,7 +72,30 @@ The project structure includes the following files and directories:
    ```sh
    pip install -r requirements.txt
 
-3. **Run the Backend**
+3. ***Configure MySQL***
+   
+  ```python DB_CONFIG = { 'host': '127.0.0.1', 'user': 'root', 'password': '', 'database': 'trucks_db' }```
+
+   ***Create Database***:
+   ```sql
+   CREATE DATABASE trucks_db;
+   USE trucks_db;
+      
+   CREATE TABLE trucks (
+     plate_number VARCHAR(20) PRIMARY KEY,
+     truck_id VARCHAR(50) NOT NULL,
+     owner VARCHAR(100)
+   );
+      
+   -- Sample data
+   INSERT INTO trucks (plate_number, truck_id, owner) VALUES
+   ('ABC123', 'T001', 'John Doe'),
+   ('XYZ789', 'T002', 'Jane Smith'),
+   ('ABC456', 'T003', 'Alice Brown');
+   ```
+
+
+5. **Run the Backend**
 
    ```sh
    python main.py
@@ -81,8 +104,8 @@ The project structure includes the following files and directories:
 ***POST /api/search_plate***
 - `Description`: Searches for truck records matching the provided plate number within a specified Levenshtein Distance tolerance
 
-  \\\json { "exampleKey": "exampleValue", "anotherKey": "anotherValue" } \\\
+  ```json { "exampleKey": "exampleValue", "anotherKey": "anotherValue" } ```
 
 ***Response (200 OK):***
-  \\\json {"matches": [{ "plate_number": "ABC123", "truck_id": "T001", "owner": "Stark", "distance": 1}]}
+  ```json {"matches": [{ "plate_number": "ABC123", "truck_id": "T001", "owner": "Stark", "distance": 1}]}```
 
