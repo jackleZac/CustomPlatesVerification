@@ -69,13 +69,13 @@ The project structure includes the following files and directories:
 
 2. **Install Dependencies**
 
-  ```sh
-  pip install -r requirements.txt
+   ```sh
+   pip install -r requirements.txt
 
 3. **Run the Backend**
 
-  ```sh
-  python main.py
+   ```sh
+   python main.py
 
 ### API Endpoints
 ***POST /api/search_plate***
