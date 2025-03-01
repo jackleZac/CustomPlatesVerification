@@ -69,18 +69,12 @@ The project structure includes the following files and directories:
 
 2. **Install Dependencies**
 
-  ```sh
-  pip install -r requirements.txt
-
-  Dependencies listed in requirements.txt
-
-  ```sh
-  flask
-  mysql-connector-python
+   ```sh
+   pip install -r requirements.txt
 
 3. **Run the Backend**
 
-  ```sh
+   ```sh
   python main.py
 
 ### API Endpoints
