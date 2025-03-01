@@ -1,7 +1,7 @@
 # This file stores configuration details like MySQL credentials
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'your_username',
-    'password': 'your_password',
+    'host': '127.0.0.1',
+    'user': 'root',
+    'password': '',
     'database': 'trucks_db'
 }
