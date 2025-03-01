@@ -73,9 +73,9 @@ The project structure includes the following files and directories:
    pip install -r requirements.txt
 
 3. **Run the Backend**
-
+   
    ```sh
-  python main.py
+   python main.py
 
 ### API Endpoints
 ***POST /api/search_plate***
