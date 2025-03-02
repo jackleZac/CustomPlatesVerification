@@ -1,5 +1,5 @@
 # Truck Plate Recognition Backend
-This is a Flask-based backend for a truck plate recognition system designed for customs use. It processes truck number plates (assuming OCR is handled externally), stores truck records in a MySQL database, and searches for approximate matches using a Levenshtein Distance algorithm optimized with a BK-Tree. The backend exposes RESTful APIs for a separate frontend to interact with, enabling efficient matching of plate numbers despite potential OCR errors.
+This is a Flask-based backend for a truck plate recognition system designed for customs use. It processes truck number plates (OCR is handled externally), stores truck records in a MySQL database, and searches for approximate matches using a Levenshtein Distance algorithm optimized with a BK-Tree. The backend exposes RESTful APIs for a separate frontend to interact with, enabling efficient matching of plate numbers despite potential OCR errors.
 
 ## Features
 
@@ -7,22 +7,6 @@ This is a Flask-based backend for a truck plate recognition system designed for 
 - **MySQL Integration**: Stores truck records (plate number, truck ID, owner) and retrieves details for matches.
 - **Modular Architecture**: Separates routes, database utilities, and search logic for maintainability.
 - **API Endpoints**: Provides endpoints to search for plates and add new truck records.
-
-## Setup Instructions
-
-### Prerequisites
-
-- Python 3.x
-- MySQL
-- Flask
-
-### Installation
-
-1. **Clone the Repository**
-
-   ```sh
-   git clone https://github.com/yourusername/truck_plate_validator.git
-   cd truck_plate_validator
 
 ## Search Algorithm
 
@@ -39,7 +23,7 @@ The backend implements Levenshtein Distance with a BK-Tree for efficient approxi
 - **Metric Tree**: Organizes strings based on their Levenshtein Distance from a root node.
 - **Search Efficiency**: Uses the triangle inequality to prune branches during search, reducing the time complexity from O(n * m * k) (naive comparison with all database entries) to O(log n) on average for a database of n plates.
 - **Example**: Searching "ABCI23" with a max distance of 2 quickly returns "ABC123" (distance 1) by avoiding unnecessary comparisons.
-- **Initialization**: The BK-Tree is initialized with all plate numbers from the database on startup and updated when new trucks are 
+- **Initialization**: The BK-Tree is initialized with all plate numbers from the database on startup and updated when new trucks are added.
 
 ## Project Structure
 
@@ -51,7 +35,7 @@ The project structure includes the following files and directories:
 - `db.py` - MySQL database utilities
 - `config.py` - Configuration (e.g., MySQL credentials)
 - `requirements.txt` - Dependencies
-- `README.md` - This file
+- `README.md` - Documentation
 
 ## Setup Instructions
 
@@ -73,8 +57,6 @@ The project structure includes the following files and directories:
    pip install -r requirements.txt
 
 3. ***Configure MySQL***
-   
-  ```python DB_CONFIG = { 'host': '127.0.0.1', 'user': 'root', 'password': '', 'database': 'trucks_db' }```
 
    ***Create Database***:
    ```sql
@@ -94,18 +76,52 @@ The project structure includes the following files and directories:
    ('ABC456', 'T003', 'Alice Brown');
    ```
 
-
+   **Start Xampp**
+   - Start XAMPP, ensure MySQL is running.
+   - Open http://localhost/phpmyadmin, and log in
+   - Create trucks_db and run the above SQL in the “SQL” tab
+   - Update config.py with your MySQL credentials:
+     
+   ```
+      DB_CONFIG = {
+        'host': '127.0.0.1',
+        'user': 'root',
+        'password': '',
+        'database': 'trucks_db'
+      }
+   ```
+   
 5. **Run the Backend**
 
    ```sh
    python main.py
 
+The server will start at ``http://localhost:5000`` in debug mode. Ensure XAMPP’s MySQL is running if using it
+
 ### API Endpoints
 ***POST /api/search_plate***
-- `Description`: Searches for truck records matching the provided plate number within a specified Levenshtein Distance tolerance
+- ***Description***: Searches for truck records matching the provided plate number within a specified Levenshtein Distance tolerance
 
-  ```json { "exampleKey": "exampleValue", "anotherKey": "anotherValue" } ```
+  ```
+  {
+    "plate_number": "ABC123",
+    "max_distance": 2 // optional, defaults to 2
+  }
+  ```
 
 ***Response (200 OK):***
-  ```json {"matches": [{ "plate_number": "ABC123", "truck_id": "T001", "owner": "Stark", "distance": 1}]}```
+  ```
+  {
+   "matches":
+      [{
+         "plate_number": "ABC123",
+         "truck_id": "T001",
+         "owner": "Stark",
+         "distance": 1
+      }]
+  }
+```
+
+
+
 
