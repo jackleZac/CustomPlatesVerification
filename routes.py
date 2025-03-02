@@ -1,10 +1,14 @@
 # This file defines the API endpoints and uses the BK-Tree and database utilities
 from flask import request, jsonify
 from db import get_db_connection, add_truck_to_db
+import time
 
 def init_routes(app, bk_tree):
     @app.route('/api/search_plate', methods=['POST'])
     def search_plate():
+        # Start timer
+        start_time = time.time()
+
         data = request.get_json()
         if not data or 'plate_number' not in data:
             return jsonify({"error": "Missing plate_number in request"}), 400
@@ -31,8 +35,16 @@ def init_routes(app, bk_tree):
         
         cursor.close()
         connection.close()
+
+        end_time = time.time()  # End timer
+        execution_time = end_time - start_time  # In seconds
+
+        response = {
+            "matches": results,
+            "execution_time_ms": execution_time * 1000  # Convert to milliseconds
+        }
         
-        return jsonify({"matches": results}), 200
+        return jsonify({"matches": response}), 200
 
     @app.route('/api/add_truck', methods=['POST'])
     def add_truck():
