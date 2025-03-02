@@ -121,6 +121,7 @@ The server will start at ``http://localhost:5000`` in debug mode. Ensure XAMPPâ€
       }]
   }
 ```
+![My Image](images/image.png)
 
 
 
