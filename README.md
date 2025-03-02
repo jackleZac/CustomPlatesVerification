@@ -51,12 +51,33 @@ The project structure includes the following files and directories:
    git clone <repository-url>
    cd truck_plate_backend
 
-2. **Install Dependencies**
+2. **Set Up Virtual Environment**
+   
+   Create a virtual environment to isolate dependencies:
+   
+   ```
+   python -m venv venv
+   ```
+   
+   Activate the virtual environment
+   - On Windows:
+   ```
+   venv\Scripts\activate
+   ```
+   
+   - On macOS/Linux:
+   ```
+   source venv/bin/activate
+   ```
+   
+   After activation, your terminal prompt should change (e.g., ``(venv)``), indicating you're in the virtual environment
+     
+4. **Install Dependencies**
 
    ```sh
    pip install -r requirements.txt
 
-3. ***Configure MySQL***
+5. ***Configure MySQL***
 
    ***Create Database***:
    ```sql
@@ -91,7 +112,7 @@ The project structure includes the following files and directories:
       }
    ```
    
-5. **Run the Backend**
+6. **Run the Backend**
 
    ```sh
    python main.py
